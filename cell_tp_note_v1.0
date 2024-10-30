@@ -1,0 +1,33 @@
+Sub CopiarConteudoParaAnotacoes()
+    Dim celula As Range
+    Dim comentario As Comment
+    
+    ' Defina o intervalo de células que deseja copiar para anotações
+    For Each celula In Selection
+        ' Verifica se a célula não está vazia
+        If Not IsEmpty(celula.Value) Then
+            ' Remove comentário antigo
+            celula.ClearComments
+            ' Adiciona o valor da célula como anotação
+            Set comentario = celula.AddComment(Text:=celula.Value)
+            
+            ' Define o tamanho, posição e aplica negrito, se necessário
+            With comentario.Shape
+                .Width = 100       ' Define a largura da anotação
+                .Height = 50       ' Define a altura da anotação
+                .TextFrame.HorizontalAlignment = xlCenter ' Centraliza o texto
+                .TextFrame.VerticalAlignment = xlCenter   ' Centraliza verticalmente o texto
+                
+                ' Define o tamanho da fonte
+                .TextFrame.Characters.Font.Size = 12
+                
+                ' Aplica o negrito se a célula estiver em negrito
+                If celula.Font.Bold Then
+                    .TextFrame.Characters.Font.Bold = True
+                End If
+            End With
+        End If
+    Next celula
+    
+    MsgBox "Conteúdo copiado para anotações com sucesso!"
+End Sub
