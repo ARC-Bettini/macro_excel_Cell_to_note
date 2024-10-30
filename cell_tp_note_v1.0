@@ -1,4 +1,4 @@
-Sub CopiarConteudoParaAnotacoes()
+dSub CopiarConteudoParaAnotacoes()
     Dim celula As Range
     Dim comentario As Comment
     
